@@ -25,9 +25,9 @@ export class TasksService {
     };
   }
 
-  async getAllTasks() {
+  async getAllTasks(page: number = 1, pageSize: number = 5) {
     try {
-      const response = await fetch(`${this.baseUrl}/tareas`, {
+      const response = await fetch(`${this.baseUrl}/tareas?page=${page}&limit=${pageSize}`, {
         headers: this.getHeaders(),
       });
       if (!response.ok) {

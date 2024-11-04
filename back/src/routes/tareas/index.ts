@@ -18,6 +18,8 @@ const tareasRoutes: FastifyPluginAsync = async (
       querystring: Type.Object({
         nombre: Type.Optional(Type.String()),
         duracion: Type.Optional(Type.String()),
+        page: Type.Optional(Type.Number({ default: 1, minimum: 1 })), // Agregue eso para que los valores de paginacion sean acptados en la solicitud
+        page_size: Type.Optional(Type.Number({ default: 5, minimum: 1 })), // Agregue eso para que los valores de paginacion sean acptados en la solicitud
       }),
       response: {
         200: {
@@ -30,11 +32,13 @@ const tareasRoutes: FastifyPluginAsync = async (
         },
       },
     },
-    //onRequest: [fastify.verifyJWT, fastify.verifyAdmin],
+
     handler: async function (request, reply) {
-      const { nombre, duracion } = request.query as {
+      const { nombre, duracion, page = 1, page_size = 5 } = request.query as {
         nombre?: string;
         duracion?: string;
+        page?: number;
+        page_size?: number;
       };
 
       let tareas = await tareaService.findAll();
@@ -46,7 +50,14 @@ const tareasRoutes: FastifyPluginAsync = async (
         tareas = tareas.filter((tarea) => String(tarea.duracion) === duracion);
       }
 
-      return tareas;
+      //Inicio y fin para la paginación
+      const startIndex = (page - 1) * page_size;
+      const endIndex = startIndex + page_size;
+
+      //Paginacionde tareas
+      const paginatedTareas = tareas.slice(startIndex, endIndex);
+
+      return paginatedTareas;
     },
   });
 };

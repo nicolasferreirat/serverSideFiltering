@@ -32,7 +32,7 @@
     <h2>Todas las Tareas</h2>
     <div class="task-container">
       <ul *ngIf="taskList.length > 0">
-        <li *ngFor="let task of taskList">
+        <li *ngFor="let task of taskList.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
           <h3>NOMBRE DE LA TAREA: {{ task.nombre }}</h3>
           <br />
           <h4>CREADOR: {{ task.creador }}</h4>
@@ -45,7 +45,7 @@
     <h2>Tareas Filtradas</h2>
     <div class="task-container">
       <ul *ngIf="filteredTasks.length > 0">
-        <li *ngFor="let task of filteredTasks">
+        <li *ngFor="let task of filteredTasks.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
           <h3>NOMBRE DE LA TAREA: {{ task.nombre }}</h3>
           <br />
           <h4>CREADOR: {{ task.creador }}</h4>
@@ -60,6 +60,12 @@
       >
         No se encontraron tareas que coincidan con los filtros aplicados.
       </p>
+
+      <div class="pagination-controls">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+      </div>
     </div>
   </div>
 </body>
