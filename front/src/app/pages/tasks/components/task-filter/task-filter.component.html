@@ -1,49 +1,65 @@
 <body>
-  <h2>Filtrar Tareas</h2>
+  <div>
+    <h1>Filtrar Tareas</h1>
 
-  <form #taskForm="ngForm" (ngSubmit)="onFilter(taskForm)">
-    <div>
-      <label for="nombre">Nombre:</label>
-      <input
-        type="text"
-        id="nombre"
-        name="nombre"
-        [(ngModel)]="nombre"
-        placeholder="Nombre de la tarea"
-      />
+    <form #taskForm="ngForm" (ngSubmit)="onFilter(taskForm)">
+      <div>
+        <label for="nombre">Nombre:</label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          [(ngModel)]="nombre"
+          placeholder="Nombre de la tarea"
+        />
+      </div>
+
+      <div>
+        <label for="duracion">Duración:</label>
+        <input
+          type="text"
+          id="duracion"
+          name="duracion"
+          [(ngModel)]="duracion"
+          placeholder="Duración de la tarea"
+        />
+      </div>
+
+      <button type="submit">Filtrar</button>
+    </form>
+    <br />
+
+    <h2>Todas las Tareas</h2>
+    <div class="task-container">
+      <ul *ngIf="taskList.length > 0">
+        <li *ngFor="let task of taskList">
+          <h3>NOMBRE DE LA TAREA: {{ task.nombre }}</h3>
+          <br />
+          <h4>CREADOR: {{ task.creador }}</h4>
+          <h4>DURACIÓN: {{ task.duracion }}</h4>
+          <h4>ID DE TAREA: {{ task.id_tarea }}</h4>
+        </li>
+      </ul>
     </div>
 
-    <div>
-      <label for="duracion">Duración:</label>
-      <input
-        type="text"
-        id="duracion"
-        name="duracion"
-        [(ngModel)]="duracion"
-        placeholder="Duración de la tarea"
-      />
+    <h2>Tareas Filtradas</h2>
+    <div class="task-container">
+      <ul *ngIf="filteredTasks.length > 0">
+        <li *ngFor="let task of filteredTasks">
+          <h3>NOMBRE DE LA TAREA: {{ task.nombre }}</h3>
+          <br />
+          <h4>CREADOR: {{ task.creador }}</h4>
+          <h4>DURACIÓN: {{ task.duracion }}</h4>
+          <h4>ID DE TAREA: {{ task.id_tarea }}</h4>
+        </li>
+      </ul>
+
+      <p
+        *ngIf="filtroAplicado && filteredTasks.length === 0"
+        class="error-message"
+      >
+        No se encontraron tareas que coincidan con los filtros aplicados.
+      </p>
     </div>
-
-    <button type="submit">Filtrar</button>
-  </form>
-
-  <h3>Todas las Tareas</h3>
-  <ul *ngIf="taskList.length > 0">
-    <li *ngFor="let task of taskList">
-      <h3>Nombre de la tarea: {{ task.nombre }}</h3>
-      <h4>Creador: {{ task.creador }}</h4>
-      <h4>Duración: {{ task.duracion }} minutos</h4>
-      <h4>ID de tarea: {{ task.id_tarea }}</h4>
-    </li>
-  </ul>
-
-  <h3>Tareas Filtradas</h3>
-  <ul *ngIf="filteredTasks.length > 0">
-    <li *ngFor="let task of filteredTasks">
-      <h3>Nombre de la tarea: {{ task.nombre }}</h3>
-      <h4>Creador: {{ task.creador }}</h4>
-      <h4>Duración: {{ task.duracion }} minutos</h4>
-      <h4>ID de tarea: {{ task.id_tarea }}</h4>
-    </li>
-  </ul>
+  </div>
 </body>

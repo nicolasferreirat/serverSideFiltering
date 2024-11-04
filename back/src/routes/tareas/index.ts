@@ -43,7 +43,7 @@ const tareasRoutes: FastifyPluginAsync = async (
         tareas = tareas.filter((tarea) => tarea.nombre.includes(nombre));
       }
       if (duracion) {
-        tareas = tareas.filter((tarea) => tarea.duracion === duracion);
+        tareas = tareas.filter((tarea) => String(tarea.duracion) === duracion);
       }
 
       return tareas;

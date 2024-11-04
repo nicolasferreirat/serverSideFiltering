@@ -4,6 +4,7 @@ import { Task } from '../../../../componentes/interfaces/task';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
+import { TasksService } from '../../../../services/tasks.service';
 
 @Component({
   selector: 'app-task-filter',
@@ -13,18 +14,17 @@ import { NgFor, NgIf } from '@angular/common';
   styleUrls: ['./task-filter.component.css'],
 })
 export class TaskFilterComponent implements OnInit {
-  httpClient: HttpClient = inject(HttpClient);
+  private taskService = inject(TasksService);
   taskList: Task[] = [];
   filteredTasks: Task[] = [];
   nombre: string = '';
   duracion: string = '';
+  filtroAplicado: boolean = false;
 
   async ngOnInit() {
     try {
-      this.taskList = await firstValueFrom(
-        this.httpClient.get<Task[]>('/back/tareas'),
-      );
-      console.log(this.taskList);
+      this.taskList = await this.taskService.getAllTasks();
+      console.log('Lista de todas las tareas:', this.taskList);
     } catch (error) {
       console.error('Error al cargar las tareas:', error);
     }
@@ -33,15 +33,11 @@ export class TaskFilterComponent implements OnInit {
   async onFilter(form: NgForm) {
     if (form.valid) {
       try {
-        const response = await firstValueFrom(
-          this.httpClient.get<Task[]>('/back/tareas', {
-            params: {
-              nombre: this.nombre,
-              duracion: this.duracion,
-            },
-          }),
+        this.filteredTasks = await this.taskService.filterTasks(
+          this.nombre,
+          this.duracion,
         );
-        this.filteredTasks = response;
+        this.filtroAplicado = true;
         console.log('Tareas filtradas:', this.filteredTasks);
       } catch (error) {
         console.error('Error al filtrar las tareas:', error);

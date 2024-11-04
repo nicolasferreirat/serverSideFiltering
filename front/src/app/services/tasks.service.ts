@@ -41,6 +41,28 @@ export class TasksService {
     }
   }
 
+  async filterTasks(nombre?: string, duracion?: string) {
+    try {
+      const url = new URL(`${this.baseUrl}/tareas`);
+      if (nombre) url.searchParams.append('nombre', nombre); // http://localhost/back/tareas?nombre=...
+      if (duracion) url.searchParams.append('duracion', duracion); // http://localhost/back/tareas?duracion=...
+
+      const response = await fetch(url.toString(), {
+        headers: this.getHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo obtener las tareas filtradas');
+      }
+
+      const tasks = await response.json();
+      return tasks;
+    } catch (error) {
+      console.error('Error al obtener las tareas filtradas:', error);
+      throw error;
+    }
+  }
+
   async post<T = any>(id_usuario: string, body: string): Promise<T> {
     try {
       const response = await fetch(
