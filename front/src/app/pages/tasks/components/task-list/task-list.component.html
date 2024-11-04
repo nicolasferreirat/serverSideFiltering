@@ -1,0 +1,19 @@
+<div class="tasks-container">
+  <h2>Lista de Tareas</h2>
+  <ul *ngIf="taskList.length > 0; else noTasks">
+    <li *ngFor="let task of taskList" class="task-item">
+      <h3>Nombre de la tarea: {{ task.nombre }}</h3>
+      <h3>Creador: {{ task.creador }}</h3>
+      <h3>Duración: {{ task.duracion }} minutos</h3>
+      <small>ID de tarea: {{ task.id_tarea }}</small>
+    </li>
+  </ul>
+
+  <ng-template #noTasks>
+    <p>No hay tareas disponibles.</p>
+  </ng-template>
+
+  <div class="button-container">
+    <a [routerLink]="['/tasks']" class="btn">Volver</a>
+  </div>
+</div>

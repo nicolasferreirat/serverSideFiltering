@@ -1,0 +1,63 @@
+<div class="task-form-container">
+  <h2>Crear Tarea</h2>
+  <form (ngSubmit)="onSubmit(formulario)" #formulario="ngForm">
+    <div>
+      <h4>Nombre:</h4>
+      <input
+        type="text"
+        [(ngModel)]="task.nombre"
+        name="nombreTarea"
+        id="nombreTarea"
+        #nombreTarea="ngModel"
+        placeholder="Nombre de tarea"
+        minlength="3"
+        maxlength="50"
+        appTaken
+        required
+      />
+      <div *ngIf="nombreTarea.control">
+        <p>VALIDACIONES DEL NOMBRE:</p>
+        <h6>
+          -> válido (si es "juan", es false por la directiva):
+          {{ nombreTarea.control.valid }}
+        </h6>
+        <h6>-> estado: {{ nombreTarea.control.status }}</h6>
+        <h6>-> sucio: {{ nombreTarea.control.dirty }}</h6>
+        <h6>-> tocado: {{ nombreTarea.control.touched }}</h6>
+        <h6>-> pendiente: {{ nombreTarea.control.pending }}</h6>
+      </div>
+    </div>
+    <div>
+      <h4>Duración:</h4>
+      <input
+        type="number"
+        [(ngModel)]="task.duracion"
+        name="duracionTarea"
+        id="duracionTarea"
+        #duracionTarea="ngModel"
+        placeholder="duración (minutos)"
+        min="1"
+        max="30"
+        required
+        appDivisor="3"
+      />
+      <div *ngIf="duracionTarea.control">
+        <p>VALIDACIONES DE DURACIÓN:</p>
+        <h6>-> válido: {{ duracionTarea.control.valid }}</h6>
+        <h6>-> estado: {{ duracionTarea.control.status }}</h6>
+        <h6>-> sucio: {{ duracionTarea.control.dirty }}</h6>
+        <h6>-> tocado: {{ duracionTarea.control.touched }}</h6>
+        <h6>-> pendiente: {{ duracionTarea.control.pending }}</h6>
+      </div>
+    </div>
+    <button type="submit">Crear Tarea</button>
+  </form>
+  <div *ngIf="formulario.control">
+    <p>VALIDACIONES DEL FORMULARIO:</p>
+    <h6>-> válido: {{ formulario.control.valid }}</h6>
+    <h6>-> estado: {{ formulario.status }}</h6>
+    <h6>-> sucio: {{ formulario.control.dirty }}</h6>
+    <h6>-> tocado: {{ formulario.control.touched }}</h6>
+    <h6>-> pendiente: {{ formulario.control.pending }}</h6>
+  </div>
+</div>

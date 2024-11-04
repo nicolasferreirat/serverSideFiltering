@@ -1,0 +1,23 @@
+<body>
+  <div class="login-container">
+    <form id="login">
+      <h1>Login</h1>
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        [(ngModel)]="username"
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        [(ngModel)]="password"
+      />
+      <button (click)="login()" type="submit">Ingresar</button>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <br />
+      <button [routerLink]="['/registro']">Registrarse</button>
+    </form>
+  </div>
+</body>

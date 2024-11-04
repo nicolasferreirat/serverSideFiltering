@@ -1,0 +1,46 @@
+name: caso2
+services:
+  back:
+    image: back
+    container_name: back
+    build:
+      context: ./back
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - ./back:/back
+    environment:
+      - PGDATABASE=${PGDATABASE}
+      - PGUSER=${PGUSER}
+      - PGPASSWORD=${PGPASSWORD}
+      - PGHOST=${PGHOST}
+  #Servicio front creado usando angular--------------------
+  front:
+    image: front
+    container_name: front
+    build:
+      context: ./front
+    command: sh -c "npm install && npm start"
+    volumes:
+      - ./front/:/front
+  #--------------------------------------------------------
+  base:
+    image: base
+    container_name: base
+    build:
+      context: ./base
+    environment:
+      - POSTGRES_DB=${PGDATABASE}
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+    ports:
+      - 5432:5432
+  proxy:
+    image: nginx:alpine
+    container_name: proxy
+    volumes:
+      - ./proxy/myconf.template:/etc/nginx/templates/default.conf.template
+    ports:
+      - 80:80
+    depends_on:
+      - front
+      - back
