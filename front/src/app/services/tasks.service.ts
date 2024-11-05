@@ -31,6 +31,8 @@ export class TasksService {
       url.searchParams.append('page', page.toString());
       url.searchParams.append('limit', limit.toString());
 
+      // url final: http://localhost/back/tareas/total?page=1&limit=5
+
       const response = await fetch(url.toString(), {
         headers: this.getHeaders(),
       });
@@ -53,12 +55,12 @@ export class TasksService {
         headers: this.getHeaders(),
       });
       if (!response.ok) {
-        throw new Error('Failed to fetch tasks');
+        throw new Error('No se pudo obtener las tareas.');
       }
       const tasks = await response.json();
       return tasks;
     } catch (error) {
-      console.error('Error fetching tasks:', error);
+      console.error('Error al obtener las tareas:', error);
       throw error;
     }
   }
@@ -66,8 +68,10 @@ export class TasksService {
   async filterTasks(nombre?: string, duracion?: string) {
     try {
       const url = new URL(`${this.baseUrl}/tareas`);
-      if (nombre) url.searchParams.append('nombre', nombre); // http://localhost/back/tareas?nombre=...
-      if (duracion) url.searchParams.append('duracion', duracion); // http://localhost/back/tareas?duracion=...
+      if (nombre) url.searchParams.append('nombre', nombre);
+      if (duracion) url.searchParams.append('duracion', duracion);
+
+      //url final: http://localhost/back/tareas?nombre=Tarea1&duracion=2
 
       const response = await fetch(url.toString(), {
         headers: this.getHeaders(),
