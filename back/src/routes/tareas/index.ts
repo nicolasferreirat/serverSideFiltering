@@ -7,6 +7,47 @@ const tareasRoutes: FastifyPluginAsync = async (
   fastify,
   opts
 ): Promise<void> => {
+  fastify.get("/total", {
+    schema: {
+      summary: "Listado de tareas completo.",
+      description:
+        "### Implementar y validar: \n " +
+        " - token \n " +
+        " - response. \n - Solo admin puede ver todas las tareas.",
+      tags: ["tareas"],
+      querystring: Type.Object({
+        page: Type.Optional(Type.Number({ minimum: 1, default: 1 })), // Parámetro de paginación
+        limit: Type.Optional(Type.Number({ minimum: 1, default: 5 })), // Límite de tareas por página
+      }),
+      response: {
+        200: {
+          description: "Lista de tareas completo.",
+          content: {
+            "application/json": {
+              schema: Type.Object({
+                tareas: Type.Array(TareaFullSchema), // Lista de tareas
+                total: Type.Number(), // Total de tareas
+                page: Type.Number(), // Página actual
+                limit: Type.Number(), // Límite de tareas por página
+              }),
+            },
+          },
+        },
+      },
+    },
+    //onRequest: [fastify.verifyJWT, fastify.verifyAdmin],
+    handler: async function (request, reply) {
+      const { page = 1, limit = 10 } = request.query as {
+        page: number;
+        limit: number;
+      };
+
+      const result = await tareaService.findAllConPaginacion(page, limit);
+
+      return result;
+    },
+  });
+
   fastify.get("/", {
     schema: {
       summary: "Listado de tareas filtradas.",

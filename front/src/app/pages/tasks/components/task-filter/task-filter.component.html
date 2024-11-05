@@ -1,6 +1,7 @@
 <body>
   <div>
     <h1>Filtrar Tareas</h1>
+    <button (click)="volver()" class="btn-volver">Volver</button>
 
     <form #taskForm="ngForm" (ngSubmit)="onFilter(taskForm)">
       <div>

@@ -25,6 +25,28 @@ export class TasksService {
     };
   }
 
+  async getPaginatedTasks(page: number, limit: number) {
+    try {
+      const url = new URL(`${this.baseUrl}/tareas/total`);
+      url.searchParams.append('page', page.toString());
+      url.searchParams.append('limit', limit.toString());
+
+      const response = await fetch(url.toString(), {
+        headers: this.getHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo obtener las tareas paginadas');
+      }
+
+      const result = await response.json();
+      return result; // Devuelve objeto con: tareas, total, página y límite
+    } catch (error) {
+      console.error('Error al obtener las tareas paginadas:', error);
+      throw error;
+    }
+  }
+
   async getAllTasks() {
     try {
       const response = await fetch(`${this.baseUrl}/tareas`, {

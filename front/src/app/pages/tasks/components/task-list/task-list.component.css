@@ -1,102 +1,93 @@
-/* Contenedor principal */
-.tasks-container {
+main {
+  font-family: "Arial", sans-serif;
   padding: 20px;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow-y: auto;
-  max-height: calc(100vh - 100px);
+  background-color: #d0e9e3;
+  border-radius: 10px;
+  max-width: 80vw;
+  margin: auto;
+  overflow: auto;
+}
+h2 {
+  font-family: "Black Ops One", sans-serif;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #004d40;
 }
 
-.button-container {
+.paginacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.task-list {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.paginacion button {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.paginacion button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.paginacion button:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+#noPart {
+  height: 90vh;
+}
+
+.li {
+  color: black;
+}
+
+#noPartidos {
+  text-align: center;
+  color: #ff0000;
+  font-size: 16px;
   margin-top: 20px;
 }
 
-.btn {
-  display: inline-block;
-  margin: 10px;
-  padding: 10px 15px;
-  background-color: #4caf50;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-}
-
-h2 {
-  text-align: center;
-  color: #4caf50;
-  font-size: 1.8em;
-  margin-bottom: 20px;
-}
-
-/* Lista de tareas */
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-/* Elemento de cada tarea */
 .task-item {
+  background-color: #ffffff;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 15px;
-  margin-bottom: 15px;
-  background-color: #f9f9f9;
-  transition: box-shadow 0.3s ease;
+  margin: 10px 0;
+  color: black;
 }
 
-.task-item:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Título de la tarea */
 .task-item h3 {
-  margin: 0 0 8px;
-  font-size: 1.1em;
-  color: #333;
+  margin: 5px 0;
 }
 
-/* Duración */
-.task-item h3:last-child {
-  color: #888;
-  font-size: 1em;
-  margin: 0 0 5px;
-}
-
-/* ID de tarea */
 .task-item small {
   display: block;
-  color: #aaa;
-  font-size: 0.9em;
+  margin-top: 10px;
 }
 
-/* Mensaje de "No hay tareas" */
-p {
-  text-align: center;
-  color: #999;
-  font-style: italic;
-}
-
-/* Contenedor de botones */
-.button-container {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-}
-
-/* Estilo general para los botones */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4caf50;
+.btn-volver {
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background-color: #007bff;
   color: white;
-  text-align: center;
-  text-decoration: none;
+  border: none;
   border-radius: 5px;
-  font-size: 1em;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.btn:hover {
-  background-color: #45a049;
+.btn-volver:hover {
+  background-color: #0056b3;
 }
