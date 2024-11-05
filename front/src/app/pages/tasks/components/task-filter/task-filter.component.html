@@ -30,9 +30,9 @@
     <br />
 
     <h2>Todas las Tareas</h2>
-    <div class="task-container">
+    <div class="task-container" *ngIf="!filtroAplicado">
       <ul *ngIf="taskList.length > 0">
-        <li *ngFor="let task of taskList.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
+        <li *ngFor="let task of taskList">
           <h3>NOMBRE DE LA TAREA: {{ task.nombre }}</h3>
           <br />
           <h4>CREADOR: {{ task.creador }}</h4>
@@ -40,12 +40,20 @@
           <h4>ID DE TAREA: {{ task.id_tarea }}</h4>
         </li>
       </ul>
+      <p *ngIf="taskList.length === 0">No hay tareas disponibles.</p>
     </div>
 
     <h2>Tareas Filtradas</h2>
-    <div class="task-container">
+    <div class="task-container" *ngIf="filtroAplicado">
       <ul *ngIf="filteredTasks.length > 0">
-        <li *ngFor="let task of filteredTasks.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
+        <li
+          *ngFor="
+            let task of filteredTasks.slice(
+              (currentPage - 1) * pageSize,
+              currentPage * pageSize
+            )
+          "
+        >
           <h3>NOMBRE DE LA TAREA: {{ task.nombre }}</h3>
           <br />
           <h4>CREADOR: {{ task.creador }}</h4>
@@ -54,17 +62,18 @@
         </li>
       </ul>
 
-      <p
-        *ngIf="filtroAplicado && filteredTasks.length === 0"
-        class="error-message"
-      >
+      <p *ngIf="filteredTasks.length === 0" class="error-message">
         No se encontraron tareas que coincidan con los filtros aplicados.
       </p>
 
-      <div class="pagination-controls">
-        <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      <div class="pagination-controls" *ngIf="filteredTasks.length > 0">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">
+          Anterior
+        </button>
         <span>Página {{ currentPage }} de {{ totalPages }}</span>
-        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+          Siguiente
+        </button>
       </div>
     </div>
   </div>

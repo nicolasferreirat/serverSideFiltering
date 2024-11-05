@@ -25,9 +25,10 @@ export class TasksService {
     };
   }
 
-  async getAllTasks(page: number = 1, pageSize: number = 5) {
+  //metodo viejo para agarrar todas las tareas, hay que ver como lo usamos
+  async getAllTaskss() {
     try {
-      const response = await fetch(`${this.baseUrl}/tareas?page=${page}&limit=${pageSize}`, {
+      const response = await fetch(`${this.baseUrl}/tareas`, {
         headers: this.getHeaders(),
       });
       if (!response.ok) {
@@ -41,11 +42,36 @@ export class TasksService {
     }
   }
 
-  async filterTasks(nombre?: string, duracion?: string) {
+  async getAllTasks(page: number = 1, pageSize: number = 5) {
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/tareas?page=${page}&page_size=${pageSize}`,
+        {
+          headers: this.getHeaders(),
+        },
+      );
+      if (!response.ok) {
+        throw new Error('Failed to fetch tasks');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+      throw error;
+    }
+  }
+
+  async filterTasks(
+    nombre?: string,
+    duracion?: string,
+    page: number = 1,
+    pageSize: number = 5,
+  ) {
     try {
       const url = new URL(`${this.baseUrl}/tareas`);
-      if (nombre) url.searchParams.append('nombre', nombre); // http://localhost/back/tareas?nombre=...
-      if (duracion) url.searchParams.append('duracion', duracion); // http://localhost/back/tareas?duracion=...
+      if (nombre) url.searchParams.append('nombre', nombre);
+      if (duracion) url.searchParams.append('duracion', duracion);
+      url.searchParams.append('page', String(page));
+      url.searchParams.append('page_size', String(pageSize));
 
       const response = await fetch(url.toString(), {
         headers: this.getHeaders(),
