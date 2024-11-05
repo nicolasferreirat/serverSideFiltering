@@ -14,6 +14,50 @@ const baseQuery = `
   SELECT * FROM tareas T
 `;
 
+export const findAllConPaginacion = async (page = 1, limit = 5) => {
+  const offset = (page - 1) * limit;
+
+  // Modificamos la consulta para incluir LIMIT y OFFSET
+  const paginatedQuery = `
+    WITH tareas AS (
+      SELECT T.*, U.username AS creador, array_agg(UA.username) AS usuarios
+      FROM public.tareas T
+      JOIN public.usuarios U ON U.id_usuario = T.id_usuario 
+      LEFT JOIN public.usuario_tareas ut ON UT.id_tarea = T.id_tarea
+      LEFT JOIN public.usuarios UA ON UA.id_usuario = UT.id_usuario
+      GROUP BY T.id_tarea, U.username
+    )
+    SELECT * FROM tareas T
+    ORDER BY T.id_tarea
+    LIMIT $1 OFFSET $2
+  `;
+
+  const params = [limit, offset];
+  const response = await db.query(paginatedQuery, params);
+
+  // Obtenemos el total de tareas para hacer la paginación
+  const totalQuery = `
+    SELECT COUNT(*) FROM (
+      SELECT T.*
+      FROM public.tareas T
+      JOIN public.usuarios U ON U.id_usuario = T.id_usuario 
+      LEFT JOIN public.usuario_tareas ut ON UT.id_tarea = T.id_tarea
+      LEFT JOIN public.usuarios UA ON UA.id_usuario = UT.id_usuario
+      GROUP BY T.id_tarea, U.username
+    ) AS total_count
+  `;
+
+  const totalRes = await db.query(totalQuery);
+  const total = parseInt(totalRes.rows[0].count, 10);
+
+  return {
+    tareas: response.rows,
+    total,
+    page,
+    limit,
+  };
+};
+
 export const findAll = async () => {
   const res = await db.query(baseQuery);
   return res.rows;
@@ -27,7 +71,7 @@ export const findCreadasByUserId = async (id_usuario: number) => {
     `,
     [id_usuario]
   );
-  if (res.rowCount === 0) throw new NotFoundError(""); //FIXME: No diferencia si el usuario no existe o no tiene tareas creadas.
+  if (res.rowCount === 0) throw new NotFoundError("");
   return res.rows;
 };
 

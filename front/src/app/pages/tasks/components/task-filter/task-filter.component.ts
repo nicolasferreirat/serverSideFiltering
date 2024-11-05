@@ -1,10 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
 import { Task } from '../../../../componentes/interfaces/task';
-import { HttpClient } from '@angular/common/http';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { TasksService } from '../../../../services/tasks.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-filter',
@@ -15,6 +14,8 @@ import { TasksService } from '../../../../services/tasks.service';
 })
 export class TaskFilterComponent implements OnInit {
   private taskService = inject(TasksService);
+  router: Router = inject(Router);
+
   taskList: Task[] = [];
   filteredTasks: Task[] = [];
   nombre: string = '';
@@ -43,5 +44,9 @@ export class TaskFilterComponent implements OnInit {
         console.error('Error al filtrar las tareas:', error);
       }
     }
+  }
+
+  volver() {
+    this.router.navigate(['/tasks']);
   }
 }

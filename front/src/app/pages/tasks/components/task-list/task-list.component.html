@@ -1,19 +1,37 @@
-<div class="tasks-container">
-  <h2>Lista de Tareas</h2>
-  <ul *ngIf="taskList.length > 0; else noTasks">
-    <li *ngFor="let task of taskList" class="task-item">
-      <h3>Nombre de la tarea: {{ task.nombre }}</h3>
-      <h3>Creador: {{ task.creador }}</h3>
-      <h3>Duración: {{ task.duracion }} minutos</h3>
-      <small>ID de tarea: {{ task.id_tarea }}</small>
-    </li>
-  </ul>
-
-  <ng-template #noTasks>
-    <p>No hay tareas disponibles.</p>
-  </ng-template>
-
-  <div class="button-container">
-    <a [routerLink]="['/tasks']" class="btn">Volver</a>
+<main>
+  <h2>Lista de tareas</h2>
+  <button (click)="volver()" class="btn-volver">Volver</button>
+  <br />
+  <div class="paginacion">
+    <button
+      (click)="loadTareas(page - 1, limit)"
+      [disabled]="page === 1 || totalTareas === 0"
+    >
+      Anterior
+    </button>
+    <span>Página {{ page }}</span>
+    <button
+      (click)="loadTareas(page + 1, limit)"
+      [disabled]="page >= totalPages"
+    >
+      Siguiente
+    </button>
   </div>
-</div>
+
+  <div *ngIf="tareas.length > 0; else noTareas" class="task-list">
+    <ul>
+      <li *ngFor="let tarea of tareas" class="task-item">
+        <h3>Nombre de la tarea: {{ tarea.nombre }}</h3>
+        <h3>Creador: {{ tarea.creador }}</h3>
+        <h3>Duración: {{ tarea.duracion }} minutos</h3>
+        <small>ID de tarea: {{ tarea.id_tarea }}</small>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noTareas>
+    <div id="noPart">
+      <p id="noPartidos">No existen tareas.</p>
+    </div>
+  </ng-template>
+</main>
