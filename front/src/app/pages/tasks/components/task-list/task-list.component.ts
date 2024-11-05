@@ -16,7 +16,6 @@ export class TaskListComponent implements OnInit {
   page: number = 1;
   limit: number = 5;
 
-  constructor() {}
   tasksService: TasksService = inject(TasksService);
   router: Router = inject(Router);
 

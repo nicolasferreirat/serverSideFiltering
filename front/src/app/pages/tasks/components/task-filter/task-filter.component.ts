@@ -31,20 +31,20 @@ export class TaskFilterComponent implements OnInit {
     }
   }
 
-  async onFilter(form: NgForm) {
-    if (form.valid) {
-      try {
-        this.filteredTasks = await this.taskService.filterTasks(
-          this.nombre,
-          this.duracion,
-        );
-        this.filtroAplicado = true;
-        console.log('Tareas filtradas:', this.filteredTasks);
-      } catch (error) {
-        console.error('Error al filtrar las tareas:', error);
-      }
-    }
-  }
+  // async onFilter(form: NgForm) {
+  //   if (form.valid) {
+  //     try {
+  //       this.filteredTasks = await this.taskService.filterTasks(
+  //         this.nombre,
+  //         this.duracion,
+  //       );
+  //       this.filtroAplicado = true;
+  //       console.log('Tareas filtradas:', this.filteredTasks);
+  //     } catch (error) {
+  //       console.error('Error al filtrar las tareas:', error);
+  //     }
+  //   }
+  // }
 
   volver() {
     this.router.navigate(['/tasks']);

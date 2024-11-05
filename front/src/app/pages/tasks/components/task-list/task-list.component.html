@@ -2,7 +2,7 @@
   <h2>Lista de tareas</h2>
   <button (click)="volver()" class="btn-volver">Volver</button>
   <br />
-  <div class="paginacion">
+  <!-- <div class="paginacion">
     <button
       (click)="loadTareas(page - 1, limit)"
       [disabled]="page === 1 || totalTareas === 0"
@@ -16,8 +16,15 @@
     >
       Siguiente
     </button>
-  </div>
+  </div> -->
 
+
+
+
+
+
+
+  
   <div *ngIf="tareas.length > 0; else noTareas" class="task-list">
     <ul>
       <li *ngFor="let tarea of tareas" class="task-item">

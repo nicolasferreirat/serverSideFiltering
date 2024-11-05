@@ -9,12 +9,31 @@ const tareasRoutes: FastifyPluginAsync = async (
 ): Promise<void> => {
   fastify.get("/total", {
     schema: {
-      summary: "Listado de tareas completo.",
-      description:
-        "### Implementar y validar: \n " +
-        " - token \n " +
-        " - response. \n - Solo admin puede ver todas las tareas.",
       tags: ["tareas"],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      /*
       querystring: Type.Object({
         page: Type.Optional(Type.Number({ minimum: 1, default: 1 })), // Parámetro de paginación
         limit: Type.Optional(Type.Number({ minimum: 1, default: 5 })), // Límite de tareas por página
@@ -33,7 +52,7 @@ const tareasRoutes: FastifyPluginAsync = async (
             },
           },
         },
-      },
+      },*/
     },
     //onRequest: [fastify.verifyJWT, fastify.verifyAdmin],
     handler: async function (request, reply) {
@@ -50,12 +69,41 @@ const tareasRoutes: FastifyPluginAsync = async (
 
   fastify.get("/", {
     schema: {
-      summary: "Listado de tareas filtradas.",
-      description:
-        "### Implementar y validar: \n " +
-        " - token \n " +
-        " - response. \n - Solo admin puede ver todas las tareas.",
       tags: ["tareas"],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      /*
       querystring: Type.Object({
         nombre: Type.Optional(Type.String()),
         duracion: Type.Optional(Type.String()),
@@ -69,7 +117,7 @@ const tareasRoutes: FastifyPluginAsync = async (
             },
           },
         },
-      },
+      },*/
     },
     //onRequest: [fastify.verifyJWT, fastify.verifyAdmin],
     handler: async function (request, reply) {
