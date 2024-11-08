@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./task-filter.component.css'],
 })
 export class TaskFilterComponent implements OnInit {
-  private taskService = inject(TasksService);
+  /*private taskService = inject(TasksService);
   router: Router = inject(Router);
 
   taskList: Task[] = [];
@@ -49,4 +49,4 @@ export class TaskFilterComponent implements OnInit {
   volver() {
     this.router.navigate(['/tasks']);
   }
-}
+};*/

@@ -11,7 +11,7 @@ import { TasksService } from '../../../../services/tasks.service';
   styleUrls: ['./task-list.component.css'],
 })
 export class TaskListComponent implements OnInit {
-  tareas: Task[] = [];
+  /*tareas: Task[] = [];
   totalTareas: number = 0;
   page: number = 1;
   limit: number = 5;
@@ -46,5 +46,5 @@ export class TaskListComponent implements OnInit {
 
   volver() {
     this.router.navigate(['/tasks']);
-  }
+  }*/
 }

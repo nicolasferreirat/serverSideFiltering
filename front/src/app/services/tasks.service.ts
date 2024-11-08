@@ -24,7 +24,7 @@ export class TasksService {
       'Content-Type': 'application/json',
     };
   }
-
+  /*
   async getPaginatedTasks(page: number, limit: number) {
     try {
       const url = new URL(`${this.baseUrl}/tareas/total`);
@@ -69,6 +69,8 @@ export class TasksService {
       if (nombre) url.searchParams.append('nombre', nombre); // http://localhost/back/tareas?nombre=...
       if (duracion) url.searchParams.append('duracion', duracion); // http://localhost/back/tareas?duracion=...
 
+      //Ejemplo de como quedaría la url: http://localhost/back/tareas?nombre=tarea&duracion=5
+
       const response = await fetch(url.toString(), {
         headers: this.getHeaders(),
       });
@@ -83,7 +85,7 @@ export class TasksService {
       console.error('Error al obtener las tareas filtradas:', error);
       throw error;
     }
-  }
+  }*/
 
   async post<T = any>(id_usuario: string, body: string): Promise<T> {
     try {

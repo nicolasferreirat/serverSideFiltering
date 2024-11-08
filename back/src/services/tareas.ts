@@ -14,7 +14,7 @@ const baseQuery = `
   SELECT * FROM tareas T
 `;
 
-export const findAllConPaginacion = async (page = 1, limit = 5) => {
+/*export const findAllConPaginacion = async (page = 1, limit = 5) => {
   const offset = (page - 1) * limit;
 
   // Modificamos la consulta para incluir LIMIT y OFFSET
@@ -56,7 +56,7 @@ export const findAllConPaginacion = async (page = 1, limit = 5) => {
     page,
     limit,
   };
-};
+};*/
 
 export const findAll = async () => {
   const res = await db.query(baseQuery);
