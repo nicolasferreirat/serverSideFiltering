@@ -1,12 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { Task } from '../../../../componentes/interfaces/task';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { TasksService } from '../../../../services/tasks.service';
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [NgIf, NgFor, RouterLink],
+  imports: [NgIf, NgFor],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
 })
