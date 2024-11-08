@@ -78,16 +78,16 @@ const tareasRoutes: FastifyPluginAsync = async (
         duracion?: string;
       };
 
-      let tareas = await tareaService.findAll();
+      let tareas = await tareaService.findAll(); //primero obtenemos todas las tareas de la bd.
 
       if (nombre) {
-        tareas = tareas.filter((tarea) => tarea.nombre.includes(nombre));
+        tareas = tareas.filter((tarea) => tarea.nombre.includes(nombre)); //filtra cada tarea de tareas por el nombre pasado.
       }
       if (duracion) {
-        tareas = tareas.filter((tarea) => String(tarea.duracion) === duracion);
+        tareas = tareas.filter((tarea) => String(tarea.duracion) === duracion); //filtra cada tarea de tareas por la duracion pasada.
       }
 
-      return tareas;
+      return tareas; //Retornamos las tareas filtradas.
     },
   });
 };

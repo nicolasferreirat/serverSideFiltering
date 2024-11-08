@@ -14,10 +14,12 @@ const baseQuery = `
   SELECT * FROM tareas T
 `;
 
+//Page es el número de pagina actual que se esta paginando, y limir la cantidad de tareas por pagina.
 export const findAllConPaginacion = async (page = 1, limit = 5) => {
-  const offset = (page - 1) * limit;
+  //offset es el encargado de fijarse desde que tarea comienza a hacer la paginacion.
+  const offset = (page - 1) * limit; //offset es el encargado de fijarse a partír de que número de tarea tiene que
 
-  // Modificamos la consulta para incluir LIMIT y OFFSET
+  // Consulta igual a la de basequery pero le agregamos  LIMIT y OFFSET
   const paginatedQuery = `
     WITH tareas AS (
       SELECT T.*, U.username AS creador, array_agg(UA.username) AS usuarios
@@ -31,11 +33,12 @@ export const findAllConPaginacion = async (page = 1, limit = 5) => {
     ORDER BY T.id_tarea
     LIMIT $1 OFFSET $2
   `;
-
   const params = [limit, offset];
-  const response = await db.query(paginatedQuery, params);
 
-  // Obtenemos el total de tareas para hacer la paginación
+  const response = await db.query(paginatedQuery, params);
+  //guardamos la respuesta de la query en 'response'
+
+  // Obtenemos el número total de tareas para hacer la paginación
   const totalQuery = `
     SELECT COUNT(*) FROM (
       SELECT T.*
@@ -48,8 +51,9 @@ export const findAllConPaginacion = async (page = 1, limit = 5) => {
   `;
 
   const totalRes = await db.query(totalQuery);
-  const total = parseInt(totalRes.rows[0].count, 10);
+  const total = parseInt(totalRes.rows[0].count, 10); //convertimos a numero entero el total de tareas
 
+  //retornamos un objeto con: tareas(las tareas seleccionadas en la paginacion), total(total de tareas contadas), page(pagina actual de la paginacion), limit(limite de tareas por pagina).
   return {
     tareas: response.rows,
     total,
