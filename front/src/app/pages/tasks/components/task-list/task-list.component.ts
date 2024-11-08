@@ -30,16 +30,13 @@ export class TaskListComponent implements OnInit {
       queryParams.append('page', page.toString());
       queryParams.append('limit', limit.toString());
 
-      const response = await this.tasksService.getPaginatedTasks(page, limit);
-      console.log('response:   ', response);
-      this.tareas = response.tareas;
-      this.totalTareas = response.total;
-      this.page = response.page;
+      //implementar utilizando el getPaginatedTasks creado en tasksService.
     } catch (error) {
       console.error('Error cargando las tareas:', error);
     }
   }
 
+  //Metodo creado para calcular el total de paginas para la cantidad de tareas.
   get totalPages(): number {
     return Math.ceil(this.totalTareas / this.limit);
   }

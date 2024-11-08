@@ -23,27 +23,11 @@ export class TaskFilterComponent implements OnInit {
   filtroAplicado: boolean = false;
 
   async ngOnInit() {
-    try {
-      this.taskList = await this.taskService.getAllTasks();
-      console.log('Lista de todas las tareas:', this.taskList);
-    } catch (error) {
-      console.error('Error al cargar las tareas:', error);
-    }
+    //Implementar utilizando el getAllTasks de tasksService.
   }
 
   async onFilter(form: NgForm) {
-    if (form.valid) {
-      try {
-        this.filteredTasks = await this.taskService.filterTasks(
-          this.nombre,
-          this.duracion,
-        );
-        this.filtroAplicado = true;
-        console.log('Tareas filtradas:', this.filteredTasks);
-      } catch (error) {
-        console.error('Error al filtrar las tareas:', error);
-      }
-    }
+    //Implementar utilizando el metodo filterTasks creado en el tasksService.
   }
 
   volver() {
