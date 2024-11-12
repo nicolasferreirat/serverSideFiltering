@@ -69,16 +69,7 @@ export class TasksService {
       if (nombre) url.searchParams.append('nombre', nombre); // http://localhost/back/tareas?nombre=...
       if (duracion) url.searchParams.append('duracion', duracion); // http://localhost/back/tareas?duracion=...
 
-      const response = await fetch(url.toString(), {
-        headers: this.getHeaders(),
-      });
-
-      if (!response.ok) {
-        throw new Error('No se pudo obtener las tareas filtradas');
-      }
-
-      const tasks = await response.json();
-      return tasks;
+      //Implementar fetch
     } catch (error) {
       console.error('Error al obtener las tareas filtradas:', error);
       throw error;
